@@ -7,8 +7,8 @@
 
 using namespace std;
 
-const int ROWS = 20;
-const int COLUMNS = 40;
+const int ROWS = 21;
+const int COLUMNS = 41;
 char GRID[ROWS][COLUMNS];
 
 struct Point 
@@ -19,9 +19,9 @@ struct Point
 void printGrid() 
 {
     system("clear"); // Use "cls" for Windows
-    for (int i=0; i<ROWS; i++) 
+    for (int i=1; i<ROWS; i++) 
     {
-        for (int j=0; j<COLUMNS; j++) 
+        for (int j=1; j<COLUMNS; j++) 
         {
             cout << GRID[i][j];
         }
@@ -31,7 +31,7 @@ void printGrid()
 
 bool isValid(int x, int y) 
 {
-    return x >=0 && x<ROWS && y>=0 && y<COLUMNS;
+    return x >0 && x<ROWS && y>0 && y<COLUMNS;
 }
 
 const vector<Point> directions = {{-1,0}, {1,0}, {0,-1}, {0,1}};
@@ -77,7 +77,8 @@ vector<Point> bfs(Point start, Point end)
     return path;
 }
 
-int main() {
+int main() 
+{
     // Initialize grid
     for (int i = 0; i < ROWS; i++)
     {
@@ -93,7 +94,7 @@ int main() {
     cout << "Enter B coordinates : ";
     cin >> xb >> yb;
 
-    xa--; ya--; xb--; yb--; // convert to 0 index
+    //xa--; ya--; xb--; yb--; // convert to 0 index
 
     if (!isValid(xa, ya) || !isValid(xb, yb) || (xa == xb && ya == yb)) {
         cout << "Invalid coordinates." << endl;
@@ -112,8 +113,12 @@ int main() {
 
     printGrid();
 
-    for (const auto& p : path) {
-        if (GRID[p.x][p.y] != 'B') GRID[p.x][p.y] = 'x';
+    for (const auto& p : path) 
+    {
+        if(GRID[p.x][p.y] != 'B') 
+        {
+            GRID[p.x][p.y] = 'x';
+        }
         printGrid();
         GRID[p.x][p.y] = '-';
         this_thread::sleep_for(chrono::milliseconds(100));
